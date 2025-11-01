@@ -96,13 +96,24 @@ endif()
 ########################################################################
 MESSAGE(STATUS "")
 MESSAGE(STATUS "Configuring Boost C++ Libraries...")
+
+set(Boost_NO_BOOST_CMAKE ON)
+
+find_package(Boost 1.36 QUIET) 
+
 SET(BOOST_REQUIRED_COMPONENTS
     date_time
     filesystem
-    system
+    # system
     thread
     program_options
 )
+
+if(Boost_VERSION_STRING AND Boost_VERSION_STRING VERSION_LESS "1.89.0")
+    MESSAGE(STATUS "Boost C++ Library version is less than 1.89.0, adding system to required components")
+    list(APPEND BOOST_REQUIRED_COMPONENTS system)
+endif()
+
 
 IF(UNIX AND EXISTS "/usr/lib64")
     LIST(APPEND BOOST_LIBRARYDIR "/usr/lib64") #fedora 64-bit fix

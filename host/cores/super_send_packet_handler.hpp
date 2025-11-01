@@ -23,6 +23,7 @@
 #include <uhd/convert.hpp>
 #include <uhd/stream.hpp>
 #include "umtrx_log_adapter.hpp"
+#include <uhd/rfnoc/actions.hpp>
 #include <uhd/utils/tasks.hpp>
 #include <uhd/utils/byteswap.hpp>
 #include <uhd/types/metadata.hpp>
@@ -449,7 +450,9 @@ public:
     }
 
     void post_output_action(
-        const std::shared_ptr<uhd::rfnoc::action_info>& action, const size_t port){
+        [[maybe_unused]] const std::shared_ptr<uhd::rfnoc::action_info>& action,
+        [[maybe_unused]] const size_t port
+    ){
         // no action required
     }
 
